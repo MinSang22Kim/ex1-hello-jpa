@@ -15,15 +15,15 @@ public class JpaMain {
         tx.begin();
 
         try {
-//            Member findMember = em.find(Member.class, 1L);
-            List<Member> result = em.createQuery("select m from Member as m", Member.class)
-                    .setFirstResult(5)
-                    .setMaxResults(8)
-                    .getResultList();
-            for (Member member : result) {
-                System.out.println("member.name = " + member.getName());
-            }
-            tx.commit(); // commit을 해야 반영이 됨
+            Member member1 = new Member(150L, "A");
+            Member member2 = new Member(160L, "B");
+
+            em.persist(member1);
+            em.persist(member2);
+
+            System.out.println("==================");
+
+            tx.commit(); // 트랜잭션 커밋
         } catch (Exception e) {
             tx.rollback();
         } finally {
